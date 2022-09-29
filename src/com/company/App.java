@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
  * with our names and colored using label backgrounds.
  *
  * @author Cole Park
- * @author Van  Park
+ * @author Van Park
  * @author Jacob Shapero
  * @author Lauren Allen
  * @author Bret Craig
@@ -210,6 +210,10 @@ public class App extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * calculate
+     * takes our numbers and operators from the calculator and returns a result based on provided input
+     */
     private void calculate()
     {
         int result;
@@ -238,6 +242,11 @@ public class App extends JFrame implements ActionListener {
         isFirst = true;
     }
 
+    /**
+     * isInt
+     * @param s a string to be tested if is an integer value
+     * @return true or false based on if provided string can be converted to integer
+     */
     private boolean isInt(String s)
     {
         try
