@@ -96,38 +96,38 @@ public class App extends JFrame implements ActionListener {
         box.add(T3);
         b1.addActionListener(this);
 
-        GridLayout calcGrid = new GridLayout(4,3);
+        BorderLayout border = new BorderLayout();
         JPanel calcPanel = new JPanel();
-        calcPanel.setLayout(calcGrid);
-        JButton calcB1 = new JButton("1");
-        JButton calcB2 = new JButton("2");
-        JButton calcB3 = new JButton("3");
-        JButton calcB4 = new JButton("4");
-        JButton calcB5 = new JButton("5");
-        JButton calcB6 = new JButton("6");
-        JButton calcB7 = new JButton("7");
-        JButton calcB8 = new JButton("8");
-        JButton calcB9 = new JButton("9");
+        JPanel buttonPanel = new JPanel();
+        GridLayout calcGrid = new GridLayout(5,3);
+        buttonPanel.setLayout(calcGrid);
+        calcPanel.setLayout(border);
+        JButton[] calcButtons = new JButton[15];
+        for (int i = 0; i < 10; i++)
+        {
+            calcButtons[i] = new JButton(i+"");
+            buttonPanel.add(calcButtons[i]);
+            calcButtons[i].addActionListener(this);
+        }
+        calcButtons[10] = new JButton("+");
+        calcButtons[11] = new JButton("-");
+        calcButtons[12] = new JButton("*");
+        calcButtons[13] = new JButton("/");
+        calcButtons[14] = new JButton("=");
+        buttonPanel.add(calcButtons[10]);
+        buttonPanel.add(calcButtons[11]);
+        buttonPanel.add(calcButtons[12]);
+        buttonPanel.add(calcButtons[13]);
+        buttonPanel.add(calcButtons[14]);
+        calcButtons[10].addActionListener(this);
+        calcButtons[11].addActionListener(this);
+        calcButtons[12].addActionListener(this);
+        calcButtons[13].addActionListener(this);
+        calcButtons[14].addActionListener(this);
         calcText = new JTextField();
-        calcPanel.add(calcText);
-        calcPanel.add(calcB1);
-        calcPanel.add(calcB2);
-        calcPanel.add(calcB3);
-        calcPanel.add(calcB4);
-        calcPanel.add(calcB5);
-        calcPanel.add(calcB6);
-        calcPanel.add(calcB7);
-        calcPanel.add(calcB8);
-        calcPanel.add(calcB9);
-        calcB1.addActionListener(this);
-        calcB2.addActionListener(this);
-        calcB3.addActionListener(this);
-        calcB4.addActionListener(this);
-        calcB5.addActionListener(this);
-        calcB6.addActionListener(this);
-        calcB7.addActionListener(this);
-        calcB8.addActionListener(this);
-        calcB9.addActionListener(this);
+        calcPanel.add(calcText, BorderLayout.NORTH);
+        calcPanel.add(buttonPanel, BorderLayout.CENTER);
+
 
 
         tabs.add(box,"Page 1");
