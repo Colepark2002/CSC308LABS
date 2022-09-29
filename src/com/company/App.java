@@ -14,13 +14,19 @@ import java.awt.event.ActionListener;
  * @author Van  Park
  * @author Jacob Shapero
  * @author Lauren Allen
- * @version 9/26/2022
+ * @author Bret Craig
+ * @version 9/28/2022
  */
 public class App extends JFrame implements ActionListener {
     JTextField T1;
     JTextField T2;
     JTextField T3;
     JTextField calcText;
+    int num1;
+    int num2;
+    char operator;
+    boolean isFirst = true;
+    boolean haveSecond = false;
 
 
 
@@ -96,13 +102,14 @@ public class App extends JFrame implements ActionListener {
         box.add(T3);
         b1.addActionListener(this);
 
+        //Calculator Setup
         BorderLayout border = new BorderLayout();
         JPanel calcPanel = new JPanel();
         JPanel buttonPanel = new JPanel();
-        GridLayout calcGrid = new GridLayout(5,3);
+        GridLayout calcGrid = new GridLayout(4,4);
         buttonPanel.setLayout(calcGrid);
         calcPanel.setLayout(border);
-        JButton[] calcButtons = new JButton[15];
+        JButton[] calcButtons = new JButton[16];
         for (int i = 0; i < 10; i++)
         {
             calcButtons[i] = new JButton(i+"");
@@ -114,16 +121,19 @@ public class App extends JFrame implements ActionListener {
         calcButtons[12] = new JButton("*");
         calcButtons[13] = new JButton("/");
         calcButtons[14] = new JButton("=");
+        calcButtons[15] = new JButton("clear");
         buttonPanel.add(calcButtons[10]);
         buttonPanel.add(calcButtons[11]);
         buttonPanel.add(calcButtons[12]);
         buttonPanel.add(calcButtons[13]);
         buttonPanel.add(calcButtons[14]);
+        buttonPanel.add(calcButtons[15]);
         calcButtons[10].addActionListener(this);
         calcButtons[11].addActionListener(this);
         calcButtons[12].addActionListener(this);
         calcButtons[13].addActionListener(this);
         calcButtons[14].addActionListener(this);
+        calcButtons[15].addActionListener(this);
         calcText = new JTextField();
         calcPanel.add(calcText, BorderLayout.NORTH);
         calcPanel.add(buttonPanel, BorderLayout.CENTER);
@@ -156,9 +166,89 @@ public class App extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, "You clicked Quit!");
         else if (e.getActionCommand().equals("Click Here"))
             T3.setText((T1.getText() + " " + T2.getText()));
-        else if (!e.getActionCommand().equals("Ok"))
+        else if (e.getActionCommand().equals("clear"))
+        {
+            calcText.setText("");
+            num1 = 0;
+            num2 = 0;
+            haveSecond = false;
+            isFirst = true;
+        }
+        else if (isInt(e.getActionCommand()))
             calcText.setText((calcText.getText() + e.getActionCommand()));
+        else
+        {
+            if(isFirst)
+            {
+                num1 = Integer.parseInt(calcText.getText());
+                isFirst = false;
+            }
+            else {
+                num2 = Integer.parseInt(calcText.getText());
+                haveSecond = true;
+            }
 
+            calcText.setText("");
+            if (!e.getActionCommand().equals("="))
+            {
+                if(!haveSecond)
+                {
+                    operator = e.getActionCommand().charAt(0);
+                }
+                else
+                {
+                    calculate();
+                    operator = e.getActionCommand().charAt(0);
+                }
+
+            }
+            else
+            {
+                calculate();
+            }
+        }
+
+    }
+
+    private void calculate()
+    {
+        int result;
+        switch(operator)
+        {
+            case '+':
+                result = num1 + num2;
+                break;
+            case '-':
+                result = num1 - num2;
+                break;
+            case '*':
+                result = num1 * num2;
+                break;
+            case '/':
+                result = num1 / num2;
+                break;
+            default:
+                result = 0;
+                break;
+        }
+        num1 = 0;
+        num2 = 0;
+        calcText.setText(result + "");
+        haveSecond = false;
+        isFirst = true;
+    }
+
+    private boolean isInt(String s)
+    {
+        try
+        {
+            Integer.parseInt(s);
+            return true;
+        }
+        catch (NumberFormatException e)
+        {
+            return false;
+        }
     }
 
 }
