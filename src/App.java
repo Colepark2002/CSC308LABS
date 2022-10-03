@@ -1,4 +1,3 @@
-package com.company;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,9 +17,9 @@ import java.awt.event.ActionListener;
  * @version 9/28/2022
  */
 public class App extends JFrame implements ActionListener {
-    JTextField T1;
-    JTextField T2;
-    JTextField T3;
+    JTextField t1;
+    JTextField t2;
+    JTextField t3;
     JTextField calcText;
     int num1;
     int num2;
@@ -93,13 +92,13 @@ public class App extends JFrame implements ActionListener {
         JPanel box = new JPanel();
         box.setLayout(grid);
         JButton b1 = new JButton("Click Here");
-        T1 = new JTextField("I can write here");
-        T2 = new JTextField("And Here...");
-        T3 = new JTextField("Or here!");
-        box.add(T1);
-        box.add(T2);
+        t1 = new JTextField("I can write here");
+        t2 = new JTextField("And Here...");
+        t3 = new JTextField("Or here!");
+        box.add(t1);
+        box.add(t2);
         box.add(b1);
-        box.add(T3);
+        box.add(t3);
         b1.addActionListener(this);
 
         //Calculator Setup
@@ -165,7 +164,7 @@ public class App extends JFrame implements ActionListener {
         else if (e.getActionCommand().equals("Quit"))
             JOptionPane.showMessageDialog(this, "You clicked Quit!");
         else if (e.getActionCommand().equals("Click Here"))
-            T3.setText((T1.getText() + " " + T2.getText()));
+            t3.setText((t1.getText() + " " + t2.getText()));
         else if (e.getActionCommand().equals("clear"))
         {
             calcText.setText("");
